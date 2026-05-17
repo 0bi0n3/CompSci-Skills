@@ -8,19 +8,57 @@
   </a>
 </p>
 
-# Skills For Real Engineers
+# CompSci Skills (Fork of Matt Pocock Skills)
 
 [![skills.sh](https://skills.sh/b/mattpocock/skills)](https://skills.sh/mattpocock/skills)
 
-My agent skills that I use every day to do real engineering - not vibe coding.
+This fork keeps the original skills-first architecture and adapts it for computer science experimentation work.
 
-Developing real applications is hard. Approaches like GSD, BMAD, and Spec-Kit try to help by owning the process. But while doing so, they take away your control and make bugs in the process hard to resolve.
+It is based on Matt Pocock’s **Real Skills for Engineers: Claude’s Guild Breakdown**, with adapted wording and workflows for experimental pipelines instead of only end-to-end product shipping.
 
-These skills are designed to be small, easy to adapt, and composable. They work with any model. They're based on decades of engineering experience. Hack around with them. Make them your own. Enjoy.
+The underlying structure remains: small composable skills, prompt-driven setup, and agent workflows that can push/pull work via GitHub issues.
 
-If you want to keep up with changes to these skills, and any new ones I create, you can join ~60,000 other devs on my newsletter:
+## Fork Goal
 
-[Sign Up To The Newsletter](https://www.aihero.dev/s/skills-newsletter)
+Build a repeatable agent-assisted methodology for:
+
+- end-to-end **experiments**
+- data processing pipelines with tests
+- ablation/toggle studies
+- result and model-log tracking
+
+This fork targets computer science workflows where correctness, reproducibility, and observability are first-class.
+
+## Methodology Shift (Product → Experiment)
+
+Compared with the original framing, this fork emphasizes:
+
+1. **Problem framing in CS language**  
+   Build shared terminology around research questions, hypotheses, modalities, dataset splits, metrics, and failure modes.
+2. **Pipeline-first execution**  
+   Design and test data ingestion, preprocessing, training/eval loops, and reporting as explicit stages.
+3. **Ablation as a default loop**  
+   Treat config toggles and controlled comparisons as part of normal development.
+4. **Tracking as core infrastructure**  
+   Keep issue tracking in GitHub and add hooks for experiment systems (for example Weights & Biases) to track model logs and outcomes.
+5. **Handoff-ready documentation**  
+   Keep context docs and ADRs up to date so multiple agents can safely continue work.
+
+## Initial Experiment Intake Questions
+
+For early prompting and grilling, agents should start with:
+
+1. **What area of computer science are these experiments designed for?**
+2. **What modalities will you be working with?**
+3. **What datasets will you be working with?**
+
+Then follow with:
+
+- What is the primary hypothesis?
+- What baseline should be compared against?
+- What metrics define success/failure?
+- What ablation toggles are required?
+- How will runs and artifacts be tracked and reproduced?
 
 ## Quickstart (30-second setup)
 
@@ -39,106 +77,58 @@ npx skills@latest add mattpocock/skills
 
 4. Bam - you're ready to go.
 
-## Why These Skills Exist
+## Chaptered Buildout Plan For This Fork
 
-I built these skills as a way to fix common failure modes I see with Claude Code, Codex, and other coding agents.
+Use these as implementation chapters other agents can pick up independently:
 
-### #1: The Agent Didn't Do What I Want
+### Chapter 1 — Domain & Vocabulary Layer
 
-> "No-one knows exactly what they want"
->
-> David Thomas & Andrew Hunt, [The Pragmatic Programmer](https://www.amazon.co.uk/Pragmatic-Programmer-Anniversary-Journey-Mastery/dp/B0833F1T3V)
+- Adapt shared language docs from software-product terms to computer-science experiment terms.
+- Define canonical terminology for datasets, modalities, task families, metrics, and ablations.
+- Keep `CONTEXT.md` and ADRs as source-of-truth artifacts.
 
-**The Problem**. The most common failure mode in software development is misalignment. You think the dev knows what you want. Then you see what they've built - and you realize it didn't understand you at all.
+### Chapter 2 — Grilling & Planning Layer
 
-This is just the same in the AI age. There is a communication gap between you and the agent. The fix for this is a **grilling session** - getting the agent to ask you detailed questions about what you're building.
+- Reframe grilling to stress methodology and experimental design quality.
+- Ensure intake includes CS area, modalities, datasets, hypotheses, and evaluation plan.
+- Produce issue-ready slices for experiment milestones.
 
-**The Fix** is to use:
+### Chapter 3 — Experiment Pipeline Execution Layer
 
-- [`/grill-me`](./skills/productivity/grill-me/SKILL.md) - for non-code uses
-- [`/grill-with-docs`](./skills/engineering/grill-with-docs/SKILL.md) - same as [`/grill-me`](./skills/productivity/grill-me/SKILL.md), but adds more goodies (see below)
+- Keep TDD and diagnosis loops, but apply them to data and model pipelines.
+- Focus on deterministic stages, testable transformations, and reproducible runs.
+- Encourage vertical slices that produce measurable experiment outputs.
 
-These are my most popular skills. They help you align with the agent before you get started, and think deeply about the change you're making. Use them _every_ time you want to make a change.
+### Chapter 4 — Ablation & Evaluation Layer
 
-### #2: The Agent Is Way Too Verbose
+- Standardize ablation toggle definition and execution.
+- Ensure each run can be compared against a clear baseline.
+- Define a reporting template for metrics, regressions, and tradeoffs.
 
-> With a ubiquitous language, conversations among developers and expressions of the code are all derived from the same domain model.
->
-> Eric Evans, [Domain-Driven-Design](https://www.amazon.co.uk/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215)
+### Chapter 5 — Tracking & Integrations Layer
 
-**The Problem**: At the start of a project, devs and the people they're building the software for (the domain experts) are usually speaking different languages.
+- Keep GitHub issue push/pull and triage as a foundation.
+- Add integration hooks for experiment tracking platforms such as Weights & Biases.
+- Track model logs, configs, metrics, and artifacts for full reproducibility.
 
-I felt the same tension with my agents. Agents are usually dropped into a project and asked to figure out the jargon as they go. So they use 20 words where 1 will do.
+### Chapter 6 — Multi-Agent Collaboration Layer
 
-**The Fix** for this is a shared language. It's a document that helps agents decode the jargon used in the project.
+- Keep handoff and issue decomposition workflows from the original.
+- Require each chapter to produce clear, delegable outputs so multiple agents can parallelize work safely.
+- Preserve compatibility with existing skill architecture wherever possible.
 
-<details>
-<summary>
-Example
-</summary>
+## What Stays the Same from the Original
 
-Here's an example [`CONTEXT.md`](https://github.com/mattpocock/course-video-manager/blob/076a5a7a182db0fe1e62971dd7a68bcadf010f1c/CONTEXT.md), from my `course-video-manager` repo. Which one is easier to read?
+- Small, composable skills instead of monolithic process frameworks.
+- Prompt-first setup and explicit issue-tracker workflows.
+- Strong emphasis on shared language, iterative feedback loops, and architecture quality.
 
-- **BEFORE**: "There's a problem when a lesson inside a section of a course is made 'real' (i.e. given a spot in the file system)"
-- **AFTER**: "There's a problem with the materialization cascade"
+## What Changes in This Fork
 
-This concision pays off session after session.
-
-</details>
-
-This is built into [`/grill-with-docs`](./skills/engineering/grill-with-docs/SKILL.md). It's a grilling session, but that helps you build a shared language with the AI, and document hard-to-explain decisions in ADR's.
-
-It's hard to explain how powerful this is. It might be the single coolest technique in this repo. Try it, and see.
-
-> [!TIP]
-> A shared language has many other benefits than reducing verbosity:
->
-> - **Variables, functions and files are named consistently**, using the shared language
-> - As a result, the **codebase is easier to navigate** for the agent
-> - The agent also **spends fewer tokens on thinking**, because it has access to a more concise language
-
-### #3: The Code Doesn't Work
-
-> "Always take small, deliberate steps. The rate of feedback is your speed limit. Never take on a task that’s too big."
->
-> David Thomas & Andrew Hunt, [The Pragmatic Programmer](https://www.amazon.co.uk/Pragmatic-Programmer-Anniversary-Journey-Mastery/dp/B0833F1T3V)
-
-**The Problem**: Let's say that you and the agent are aligned on what to build. What happens when the agent _still_ produces crap?
-
-It's time to look at your feedback loops. Without feedback on how the code it produces actually runs, the agent will be flying blind.
-
-**The Fix**: You need the usual tranche of feedback loops: static types, browser access, and automated tests.
-
-For automated tests, a red-green-refactor loop is critical. This is where the agent writes a failing test first, then fixes the test. This helps give the agent a consistent level of feedback that results in far better code.
-
-I've built a **[`/tdd`](./skills/engineering/tdd/SKILL.md) skill** you can slot into any project. It encourages red-green-refactor and gives the agent plenty of guidance on what makes good and bad tests.
-
-For debugging, I've also built a **[`/diagnose`](./skills/engineering/diagnose/SKILL.md)** skill that wraps best debugging practices into a simple loop.
-
-### #4: We Built A Ball Of Mud
-
-> "Invest in the design of the system _every day_."
->
-> Kent Beck, [Extreme Programming Explained](https://www.amazon.co.uk/Extreme-Programming-Explained-Embrace-Change/dp/0321278658)
-
-> "The best modules are deep. They allow a lot of functionality to be accessed through a simple interface."
->
-> John Ousterhout, [A Philosophy Of Software Design](https://www.amazon.co.uk/Philosophy-Software-Design-2nd/dp/173210221X)
-
-**The Problem**: Most apps built with agents are complex and hard to change. Because agents can radically speed up coding, they also accelerate software entropy. Codebases get more complex at an unprecedented rate.
-
-**The Fix** for this is a radical new approach to AI-powered development: caring about the design of the code.
-
-This is built in to every layer of these skills:
-
-- [`/to-prd`](./skills/engineering/to-prd/SKILL.md) quizzes you about which modules you're touching before creating a PRD
-- [`/zoom-out`](./skills/engineering/zoom-out/SKILL.md) tells the agent to explain code in the context of the whole system
-
-And crucially, [`/improve-codebase-architecture`](./skills/engineering/improve-codebase-architecture/SKILL.md) helps you rescue a codebase that has become a ball of mud. I recommend running it on your codebase once every few days.
-
-### Summary
-
-Software engineering fundamentals matter more than ever. These skills are my best effort at condensing these fundamentals into repeatable practices, to help you ship the best apps of your career. Enjoy.
+- Product-centric wording becomes experiment-centric wording.
+- End-to-end app delivery expands to end-to-end experiment + data pipeline delivery.
+- Testing remains mandatory, and is paired with ablation studies and experiment tracking.
+- GitHub remains central for planning/triage, with additional hooks for model observability tooling.
 
 ## Reference
 
